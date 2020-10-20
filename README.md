@@ -2,7 +2,7 @@
 
 Recuerden ejectuar ```npm install``` para las librerías
 
-##Ejemplo: 
+## Ejemplo: 
 ```
 node server/server
 ```
