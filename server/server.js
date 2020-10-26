@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(require('./routes/usuario'));
+//CONFIGURACIÓN GLOBAL DE RUTAS
+app.use(require('./routes/index'));
 
 const connectDB = async(urlDB) => {
 
