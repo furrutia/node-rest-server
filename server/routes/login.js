@@ -30,8 +30,6 @@ app.post('/login', (req, res) => {
 
         let passwordMatch = bcrypt.compareSync(body.password, usuarioDB.password);
 
-        passwordMatch = true;
-
         if (!passwordMatch) {
 
             console.log('Usuario o [contraseña] incorrectos');
