@@ -2,18 +2,24 @@ require('./config/config');
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 const bodyParser = require('body-parser')
 const port = process.env.PORT;
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-//CONFIGURACIÓN GLOBAL DE RUTAS
+// habilitar la carpeta public
+app.use(express.static(path.resolve(__dirname, '../public')));
+
+console.log(path.resolve(__dirname, '../public'));
+
+// CONFIGURACIÓN GLOBAL DE RUTAS
 app.use(require('./routes/index'));
 
 const connectDB = async(urlDB) => {
