@@ -180,7 +180,7 @@ app.put('/productos/:id', verificaToken, (req, res) => {
         usuario: req.usuario._id
     };
 
-    Producto.findByIdAndUpdate(id, productoUpdate, { new: true, runValidators: true }, (err, productoDB) => {
+    Producto.findById(id, (err, productoDB) => {
 
         if (err) {
             return res.status(500).json({
@@ -192,16 +192,35 @@ app.put('/productos/:id', verificaToken, (req, res) => {
         if (!productoDB) {
             return res.status(400).json({
                 ok: false,
-                err
+                err: {
+                    message: 'El ID no existe'
+                }
             });
         }
 
-        res.json({
-            ok: true,
-            producto: productoDB
-        });
-    });
+        productoDB.nombre = body.nombre;
+        productoDB.precioUni = body.precioUni;
+        productoDB.categoria = body.categoria;
+        productoDB.disponible = body.disponible;
+        productoDB.descripcion = body.descripcion;
 
+        productoDB.save((err, productoGuardado) => {
+
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
+            }
+
+            res.json({
+                ok: true,
+                producto: productoGuardado
+            });
+
+        });
+
+    });
 
 
 });
