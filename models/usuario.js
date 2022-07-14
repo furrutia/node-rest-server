@@ -34,7 +34,8 @@ const UsuarioSchema = Schema({
 
 //ESTE METODO SIRVE PARA QUE CUANDO SE HAGA UN SELECT DEL USUARIO, VENGA SIN LA PASSWORD
 UsuarioSchema.methods.toJSON = function () {
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 

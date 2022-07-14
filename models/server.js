@@ -6,7 +6,8 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.usuariosPath = '/api/usuarios'
+        this.usuariosPath = '/api/usuarios';
+        this.authPath     = '/api/auth';
 
         // Conectar a la BD
         this.conectarDB();
@@ -24,22 +25,23 @@ class Server {
 
     middlewares() {
         // CORS
-        this.app.use(cors())
+        this.app.use(cors());
 
         // Lectura y parseo del body
-        this.app.use(express.json())
+        this.app.use(express.json());
 
         // Directorio público
         this.app.use(express.static('public'));
     }
 
     routes() {
-        this.app.use(this.usuariosPath, require('../routes/usuarios'))
+        this.app.use(this.authPath, require('../routes/auth'));
+        this.app.use(this.usuariosPath, require('../routes/usuarios'));
     }
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log('Servidor corriendo en puerto', this.port)
+            console.log('Servidor corriendo en puerto', this.port);
         })
     }
 }
