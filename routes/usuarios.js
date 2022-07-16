@@ -19,12 +19,15 @@ const {
     usuariosPost,
     usuariosPut,
     usuariosPatch,
-    usuariosDelete
+    usuariosDelete,
+    usuariosGetById
 } = require('../controllers/usuarios');
 
 const router = Router();
 
 router.get('/', usuariosGet);
+
+router.get('/:id', usuariosGetById);
 
 router.post('/', [
     check('nombre', 'El nombre es obligatorio').notEmpty(),

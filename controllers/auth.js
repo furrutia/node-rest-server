@@ -1,7 +1,7 @@
 const { response, request, json } = require('express');
 const bcryptjs = require('bcryptjs');
 
-const Usuario = require('../models/usuario');
+const { Usuario } = require('../models');
 
 const { generarJWT } = require('../helpers/generar-jwt');
 const { googleVerify } = require('../helpers/google-verify');
@@ -16,7 +16,7 @@ const login = async( req, res = response ) => {
 
         if (!usuario) {
             return res.status(400).json({
-                msg: 'Usuario / Password no son ºcorrectos - correo'
+                msg: 'Usuario / Password no son correctos - correo'
             });
         }
 
@@ -37,7 +37,7 @@ const login = async( req, res = response ) => {
         const token = await generarJWT( usuario.id );
         
         res.json({
-            msg: 'Login ok',
+            usuario,
             token
         });
 

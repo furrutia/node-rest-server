@@ -1,7 +1,18 @@
 const { response, request } = require('express');
 
-const Usuario = require('../models/usuario');
+const { Usuario } = require('../models');
 const bcryptjs = require('bcryptjs');
+
+const usuariosGetById = async( req=request, res = response) => {
+
+    const id = req.params.id;
+    const usuario = await Usuario.findById( id );
+
+    res.json({
+        usuario
+    });
+
+}
 
 const usuariosGet = async(req = request, res = response) => {
     
@@ -13,7 +24,7 @@ const usuariosGet = async(req = request, res = response) => {
         Usuario.find(filter)
             .skip( Number(desde) )
             .limit( Number(limite) )
-    ])
+    ]);
 
     res.json({
         total,
@@ -38,8 +49,7 @@ const usuariosPost = async (req = request, res = response) => {
 
     //GUARDAR EN BD
     await usuario.save();
-
-    res.json({usuario})
+    return res.status(201).json({usuario});
 }
 
 const usuariosPut = async(req = request, res = response) => {
@@ -53,7 +63,7 @@ const usuariosPut = async(req = request, res = response) => {
     }
     
     const usuario = await Usuario.findByIdAndUpdate(id, resto);
-    res.json(usuario);
+    return res.status(201).json(usuario);
 }
  
 const usuariosPatch = (req = request, res = response) => {
@@ -67,10 +77,11 @@ const usuariosDelete = async(req = request, res = response) => {
     const { id } = req.params;
     const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
 
-    res.json(usuario);
+    return res.status(201).json(usuario);
 }
 
 module.exports = {
+    usuariosGetById,
     usuariosGet,
     usuariosPost,
     usuariosPut,
