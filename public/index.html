@@ -31,6 +31,8 @@
 
     <script>
 
+        console.log(window.location.hostname.includes('localhost'))
+
         var url = ( window.location.hostname.includes('localhost') )
                     ? 'http://localhost:8080/api/auth/google'
                     : 'https://node-rest-server-furrutia.herokuapp.com/api/auth/google'
