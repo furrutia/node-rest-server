@@ -10,8 +10,9 @@ class Server {
         this.paths = {
             auth:       '/api/auth',
             usuarios:   '/api/usuarios',
-            categorias: '/api/categorias'
-        }
+            categorias: '/api/categorias',
+            productos:  '/api/productos'
+        };
 
         // Conectar a la BD
         this.conectarDB();
